@@ -1,0 +1,9 @@
+name: automation-exercise-actions
+on: [push]
+jobs:
+  style_check:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - uses: psf/black@stable
+        - run: black . --check
