@@ -4,5 +4,19 @@ jobs:
   style_check:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v3
-        - uses: psf/black@stable
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: coverage run --omit 'venv/*' -m pytest
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          path: .coverage
+          retention-days: 1
